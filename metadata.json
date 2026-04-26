@@ -1,0 +1,6 @@
+{
+  "name": "DocShape Inspector",
+  "description": "Extract and track shape names from PPTX and Word documents as defined in the Selection Pane.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

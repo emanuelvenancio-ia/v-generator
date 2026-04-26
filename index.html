@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocShape Inspector</title>
+    <script>
+      // Defensive guard for "TypeError: Cannot set property fetch of #<Window> which has only a getter"
+      // This happens when a library (like @google/genai or node-fetch polyfills) attempts to assign to window.fetch
+      try {
+        if (window.fetch && Object.getOwnPropertyDescriptor(window, 'fetch')?.set === undefined) {
+          const originalFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: () => originalFetch,
+            set: (v) => { console.warn('Blocked attempt to overwrite window.fetch'); },
+            configurable: true
+          });
+        }
+      } catch (e) {
+        // Ignore errors during guard application
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
